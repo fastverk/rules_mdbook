@@ -1,0 +1,9 @@
+load("@rules_mdbook//mdbook:defs.bzl", "mdbook_book")
+
+mdbook_book(
+    name = "site",
+    srcs = glob(["src/**/*.md"]),
+    out = "site.tar.gz",
+    book_toml = "book.toml",
+    plugins = ["@mdbook_mermaid//:mdbook-mermaid"],
+)
