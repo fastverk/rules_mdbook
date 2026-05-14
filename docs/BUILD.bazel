@@ -23,6 +23,13 @@ stardoc(
     deps = ["//mdbook:extensions_bzl"],
 )
 
+stardoc(
+    name = "toolchains_doc",
+    out = "toolchains.md.generated",
+    input = "//mdbook:toolchains.bzl",
+    deps = ["//mdbook:toolchains_bzl"],
+)
+
 diff_test(
     name = "defs_doc_up_to_date",
     file1 = "defs.md",
@@ -35,11 +42,18 @@ diff_test(
     file2 = ":extensions_doc",
 )
 
+diff_test(
+    name = "toolchains_doc_up_to_date",
+    file1 = "toolchains.md",
+    file2 = ":toolchains_doc",
+)
+
 sh_binary(
     name = "update",
     srcs = ["update.sh"],
     data = [
         ":defs_doc",
         ":extensions_doc",
+        ":toolchains_doc",
     ],
 )

@@ -191,8 +191,8 @@
   "moduleExtensions": {
     "//mdbook:extensions.bzl%mdbook": {
       "general": {
-        "bzlTransitiveDigest": "tepWbpCY34Yho4C6KAZpxYrF4BN4tM1aK095unr1Y/Q=",
-        "usagesDigest": "OZjPkeG5GY+cassWn+R5wbP4iujhelLOzRU9eFVH460=",
+        "bzlTransitiveDigest": "m4NHZ7TK57TUDLLP4M/LB8YAQhzdBetY9gilLJW96wU=",
+        "usagesDigest": "jyHCIs+EwcyEm0ghgwjdQAgrPm+25y7/ph9meOzgR+4=",
         "recordedInputs": [],
         "generatedRepoSpecs": {
           "mdbook": {

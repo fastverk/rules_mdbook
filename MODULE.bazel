@@ -1,6 +1,6 @@
 module(
     name = "rules_mdbook",
-    version = "0.1.0",
+    version = "0.2.0",
     compatibility_level = 1,
 )
 
@@ -16,3 +16,8 @@ bazel_dep(name = "stardoc", version = "0.7.2", dev_dependency = True)
 # call `use_extension` themselves in their own MODULE.bazel.
 mdbook = use_extension("//mdbook:extensions.bzl", "mdbook", dev_dependency = True)
 use_repo(mdbook, "mdbook", "mdbook_mermaid")
+
+register_toolchains(
+    "@mdbook//:mdbook_toolchain_def",
+    dev_dependency = True,
+)

@@ -5,7 +5,12 @@ prebuilt mdbook binary (plus mdbook-mermaid) and orchestrates a hermetic
 `mdbook build` from a Bazel-managed sandbox.
 
 - **module extension**: `mdbook` — auto-creates `@mdbook` + `@mdbook_mermaid` external repos. See [docs/extensions.md](docs/extensions.md).
-- **rule**: `mdbook_book` — runs mdbook over a staged source tree, packages the rendered HTML as a `.tar.gz`. See [docs/defs.md](docs/defs.md).
+- **toolchain**: `mdbook_toolchain` — wraps the mdbook binary; resolved via `@rules_mdbook//mdbook:toolchain_type`. See [docs/toolchains.md](docs/toolchains.md).
+- **rules**:
+  - `mdbook_book` — runs `mdbook build` over a staged source tree, packages HTML as `.tar.gz`.
+  - `mdbook_serve` — `bazel run //path:serve` → `mdbook serve` with watch + live reload over the live source tree.
+
+  See [docs/defs.md](docs/defs.md).
 
 ## Install
 
@@ -19,10 +24,11 @@ common --registry=https://bcr.bazel.build/
 In your `MODULE.bazel`:
 
 ```python
-bazel_dep(name = "rules_mdbook", version = "0.1.0")
+bazel_dep(name = "rules_mdbook", version = "0.2.0")
 
 mdbook = use_extension("@rules_mdbook//mdbook:extensions.bzl", "mdbook")
 use_repo(mdbook, "mdbook", "mdbook_mermaid")
+register_toolchains("@mdbook//:mdbook_toolchain_def")
 ```
 
 Override versions if needed:

@@ -1,9 +1,16 @@
-load("@rules_mdbook//mdbook:defs.bzl", "mdbook_book")
+load("@rules_mdbook//mdbook:defs.bzl", "mdbook_book", "mdbook_serve")
 
 mdbook_book(
     name = "site",
     srcs = glob(["src/**/*.md"]),
     out = "site.tar.gz",
     book_toml = "book.toml",
+    plugins = ["@mdbook_mermaid//:mdbook-mermaid"],
+)
+
+# `bazel run //examples/smoke:serve` -> mdbook serve at localhost:3000
+# with watch + live reload over the live source tree.
+mdbook_serve(
+    name = "serve",
     plugins = ["@mdbook_mermaid//:mdbook-mermaid"],
 )

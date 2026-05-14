@@ -50,11 +50,32 @@ def _binary_repo_impl(rctx, *, name, version, platform, ext, sha256):
         stripPrefix = "",
     )
     binary_name = name + (".exe" if ext == "zip" else "")
+
+    # Only the @mdbook repo gets a toolchain declaration — plugins are
+    # consumed by mdbook_book as plain executables, not via toolchains.
+    toolchain_block = ""
+    if name == "mdbook":
+        toolchain_block = """\
+
+load("@rules_mdbook//mdbook:toolchains.bzl", "mdbook_toolchain")
+
+mdbook_toolchain(
+    name = "mdbook_toolchain",
+    mdbook = ":{name}",
+)
+
+toolchain(
+    name = "mdbook_toolchain_def",
+    toolchain = ":mdbook_toolchain",
+    toolchain_type = "@rules_mdbook//mdbook:toolchain_type",
+)
+""".format(name = binary_name)
+
     rctx.file("BUILD.bazel", """\
 package(default_visibility = ["//visibility:public"])
 
 exports_files(["{name}"])
-""".format(name = binary_name))
+{toolchain}""".format(name = binary_name, toolchain = toolchain_block))
 
 def _make_binary_repo_rule(tool_name):
     """Build a repository rule that downloads `tool_name`."""
