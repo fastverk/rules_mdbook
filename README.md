@@ -17,7 +17,7 @@ prebuilt mdbook binary (plus mdbook-mermaid) and orchestrates a hermetic
 Add the registry to your `.bazelrc`:
 
 ```
-common --registry=https://raw.githubusercontent.com/mattmarshall/bazel-registry/main/
+common --registry=https://raw.githubusercontent.com/fastverk/bazel-registry/main/
 common --registry=https://bcr.bazel.build/
 ```
 
